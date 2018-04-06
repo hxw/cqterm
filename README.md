@@ -16,7 +16,7 @@
     + always save on exit
     + save on tab order change or tab append (*MISSING*)
 * active tab indication (*MISSING*)
-* use of `XDG_CONFIG_HOME` to store conf/session files (*MISSING*)
+* use of `XDG_CONFIG_HOME` to store conf/session files
 
 
 # to fix
@@ -26,4 +26,3 @@
 * active tabs indication - need to set tab to BOLD font
 * click to focus on terminal
     +  mouse must be over termial window to receive input
-* use of `XDG_CONFIG_HOME`

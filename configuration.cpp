@@ -105,8 +105,8 @@ Configuration::Configuration(QString filename) {
 				theTab->directory = homeDirectory;
 			} else if (theTab->directory.startsWith("~/")) {
 				theTab->directory = homeDirectory + theTab->directory.mid(1);
-			} else if (!theTab->directory.startsWith("/")) {
-				theTab->directory = homeDirectory + "/" + theTab->directory;
+			} else if (!theTab->directory.startsWith(QDir::separator())) {
+				theTab->directory = homeDirectory + QDir::separator() + theTab->directory;
 			}
 
 			if (t[sendLine]) {

@@ -3,11 +3,17 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QString>
+#include <QDir>
 #include <QDebug>
+
+#include <cstdlib>
 
 #include "conlecterm.h"
 #include "configuration.h"
 #include "session.h"
+
+static QString getPathFor(QString filename);
+
 
 static const QString configurationFile("cqterm.conf");
 static const QString sessionFile("session.json");
@@ -19,13 +25,13 @@ int main(int argc, char *argv[]) {
 	// 	qDebug() << index << ": " << arguments.at(index);
 	// }
 
-	Session session(sessionFile);
+	Session session(getPathFor(sessionFile));
 
-	Configuration c(configurationFile);
+	Configuration c(getPathFor(configurationFile));
 	if (!c.isValid()) {
 		qDebug() << "error: " << c.getError();
 		QMessageBox msgBox;
-		msgBox.setText("ERROR: reading configuration: " + configurationFile);
+		msgBox.setText("ERROR: reading configuration: " + getPathFor(configurationFile));
 		msgBox.setInformativeText(c.getError());
 		msgBox.setStandardButtons(QMessageBox::Cancel);
 		msgBox.setDefaultButton(QMessageBox::Cancel);
@@ -36,4 +42,12 @@ int main(int argc, char *argv[]) {
 	Conlecterm cq(&c, &session);
 	cq.show();
 	return app.exec();
+}
+
+static QString getPathFor(QString filename) {
+	QString configHome(std::getenv("XDG_CONFIG_HOME"));
+	if (configHome.isEmpty()) {
+		configHome = QDir::homePath() + QDir::separator() + ".config";
+	}
+	return configHome + QDir::separator() + "cqterm" + QDir::separator() + filename;
 }
