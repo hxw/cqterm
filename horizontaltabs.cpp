@@ -11,7 +11,7 @@
 
 #include "horizontaltabs.h"
 
-static const int tabWidth = 80;
+static const int tabWidth = 120;
 static const int tabHeight = 20;
 static const int hMargin = 4;
 static const int vMargin = 2;

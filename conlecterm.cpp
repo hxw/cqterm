@@ -65,6 +65,30 @@ void Conlecterm::showContextMenu(const QPoint &pos) {
 
 	QMenu sessionMenu;
 	sessionMenu.setTitle("Choose a session…");
+	sessionMenu.setSeparatorsCollapsible(false);
+	sessionMenu.addSeparator()->setText("choose session…");
+	sessionMenu.addSeparator();
+	sessionMenu.setStyleSheet(
+		"QMenu {"
+		//"  background-color: #a6daff;"  // hides separator text
+		"  font-size: 10pt;"   // separator
+		"  font-weight: bold;" // separator
+		"  border: 2px solid black;"
+		"}"
+		"QMenu::item {"
+		"  background-color: #a6daff;"
+		"  color: #000000;"
+		"  font-size: 12pt;"
+		"  font-weight: bold;"
+		"}"
+		"QMenu::separator {"
+		"  color: #0000ff;"
+		"}"
+		"QMenu::item::selected {"
+		"  background-color: #00daff;"
+		"}"
+		);
+
 	for (auto &s : configuration->allTabs()) {
 		sessionMenu.addAction(configuration->get(s)->name);
 	}
