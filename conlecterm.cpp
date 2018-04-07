@@ -5,7 +5,8 @@
 #include <QDebug>
 #include <QMenu>
 #include <QIcon>
-#include <QPixmap>
+#include <QCloseEvent>
+#include <QMessageBox>
 
 #include "conlecterm.h"
 #include "horizontaltabs.h"
@@ -104,4 +105,33 @@ void Conlecterm::showContextMenu(const QPoint &pos) {
 	} else {
 		qDebug() << "nothing was chosen";
 	}
+}
+
+
+void Conlecterm::closeEvent(QCloseEvent *event)
+{
+	auto active = 0;
+	for (auto i = 0; i < tabs->count(); ++i) {
+		if (!tabs->tabIcon(i).isNull()) {
+			++active;
+		}
+	}
+
+	if (active > 0) {
+		QMessageBox msgBox;
+		msgBox.setText("Active Tabs!");
+		msgBox.setInformativeText("Choose Ok to force exit");
+		msgBox.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
+		msgBox.setDefaultButton(QMessageBox::Cancel);
+		auto r = msgBox.exec();
+
+		if (QMessageBox::Ok == r) {
+			event->accept();
+		} else {
+			event->ignore();
+		}
+		return;
+	}
+
+	event->accept();
 }

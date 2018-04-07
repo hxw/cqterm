@@ -4,6 +4,7 @@
 #define _CONLECTERM_H_ 1
 
 #include <QTabWidget>
+#include <QEvent>
 
 #include "configuration.h"
 #include "session.h"
@@ -17,6 +18,9 @@ public:
 
 public slots:
 	void showContextMenu(const QPoint &pos);
+
+protected:
+	void closeEvent(QCloseEvent *event);
 
 private:
 	QTabWidget *tabs;
