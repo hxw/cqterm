@@ -4,6 +4,8 @@
 #include <QLayout>
 #include <QDebug>
 #include <QMenu>
+#include <QIcon>
+#include <QPixmap>
 
 #include "conlecterm.h"
 #include "horizontaltabs.h"
@@ -17,6 +19,7 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 
 	auto *vbox = new QVBoxLayout;
 	tabs = new HorizontalTabWidget;
+
 	tabs->setMovable(true);
 	tabs->setUsesScrollButtons(true);
 

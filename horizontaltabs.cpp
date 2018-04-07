@@ -1,6 +1,7 @@
 // horizontaltabs.cpp
 // code extracted from:
 //   https://stackoverflow.com/questions/4802079/how-to-change-text-alignment-in-qtabwidget-in-c
+// but paint corrected to prevent crash when stylesheets was added
 
 #include <QTabBar>
 #include <QTabWidget>
@@ -14,9 +15,11 @@ static const int tabWidth = 80;
 static const int tabHeight = 20;
 static const int hMargin = 4;
 static const int vMargin = 2;
+static const int iconWidth = 10;
+static const int iconHeight = 10;
 
 HorizontalTabBar::HorizontalTabBar(QWidget *parent) : QTabBar(parent) {
-	setIconSize(QSize(0, 0));
+	setIconSize(QSize(iconWidth, iconHeight));
 }
 
 QSize HorizontalTabBar::tabSizeHint(int) const {
@@ -34,15 +37,18 @@ void HorizontalTabBar::paintEvent(QPaintEvent *) {
 		tab.icon = QIcon();
 		tab.text = QString();
 
-		p.drawControl(QStyle::CE_TabBarTab, tab);
-
 		QPainter painter;
 		painter.begin(this);
+
+		p.drawControl(QStyle::CE_TabBarTab, tab);
+
 		QRect tabrect = tabRect(index);
 
-		tabrect.adjust(hMargin, vMargin, -hMargin, -vMargin);
+		tabrect.adjust(hMargin + iconWidth, vMargin, -hMargin, -vMargin);
 		painter.drawText(tabrect, Qt::AlignTop | Qt::AlignLeft, tempText);
-		tempIcon.paint(&painter, 0, tabrect.top(), tab.iconSize.width(), tab.iconSize.height(), Qt::AlignTop | Qt::AlignHCenter);
+
+		tempIcon.paint(&painter, hMargin, tabrect.top() + vMargin, tab.iconSize.width(), tab.iconSize.height(), Qt::AlignTop | Qt::AlignHCenter);
+
 		painter.end();
 	}
 }
@@ -51,4 +57,24 @@ void HorizontalTabBar::paintEvent(QPaintEvent *) {
 HorizontalTabWidget::HorizontalTabWidget(QWidget *parent) : QTabWidget(parent) {
 	setTabBar(new HorizontalTabBar());
 	setTabPosition(QTabWidget::West);
+	setStyleSheet(
+		"QTabBar {"
+		"  font-size: 12pt;"
+		"  font-weight: bold;"
+		"}"
+		"QTabBar::tab {"
+		"  background-color: #a6daff;"
+		"  color: #000000;"
+		"  font-weight: slant;"
+		"}"
+		"QTabBar::tab:selected {"
+		"  background-color: #ffdaff;"
+		"}"
+		"QTabBar::tab:selected:hover {"
+		"  background-color: #af7aaf;"
+		"}"
+		"QTabBar::tab:hover {"
+		"  background-color: #00daff;"
+		"}"
+		);
 }

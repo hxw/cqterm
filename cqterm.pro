@@ -8,6 +8,7 @@ HEADERS       = configuration.h \
                 conlecterm.h \
                 terminaltab.h \
                 horizontaltabs.h \
+                run.xpm \
                 xinterface.h
 SOURCES       = configuration.cpp \
                 session.cpp \

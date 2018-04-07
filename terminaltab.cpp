@@ -2,10 +2,15 @@
 
 #include <QtWidgets>
 #include <QDir>
+#include <QIcon>
 #include <QDebug>
 
 #include "terminaltab.h"
 #include "xinterface.h"
+
+const // for C++ to make pixmap include compile
+#include "run.xpm"
+
 
 class Embed : public QWindow {
 public:
@@ -30,10 +35,11 @@ private:
 
 TerminalTab::TerminalTab(QString program_, QStringList arguments_,
 			 QString directory_, QStringList sendLines_,
-			 QWidget *parent) :
-	QWidget(parent), program(program_), directory(directory_), sendLines(sendLines_) {
+			 QWidget *parent_) :
+	QWidget(parent_), program(program_), directory(directory_), sendLines(sendLines_), parentTabWidget(static_cast<QTabWidget *>(parent_)) {
 
 	run = false;
+	runIcon.addPixmap(QPixmap(run_xpm));
 
 	pane = new QVBoxLayout;
 
@@ -61,9 +67,8 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_,
 
 	connect(closeButton, &QPushButton::released,
 		[=](){
-			auto tabs = static_cast<QTabWidget *>(parent);
-			auto index = tabs->currentIndex();
-			tabs->removeTab(index);
+			auto index = parentTabWidget->indexOf(this);
+			parentTabWidget->removeTab(index);
 		});
 
 
@@ -88,11 +93,17 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_,
 			container->hide();
 			startClose->show();
 			run = false;
+			auto index = parentTabWidget->indexOf(this);
+			parentTabWidget->setTabIcon(index, QIcon());
+
 		});
 
 	connect(proc, &QProcess::started,
 		[=](){
 			qDebug() << "Started";
+			auto index = parentTabWidget->indexOf(this);
+			parentTabWidget->setTabIcon(index, runIcon);
+
 		});
 	pane->addWidget(startClose);
 	pane->addWidget(container);

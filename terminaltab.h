@@ -4,9 +4,11 @@
 #define _TERMINALTAB_H_ 1
 
 #include <QWidget>
+#include <QTabWidget>
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QProcess>
+#include <QIcon>
 
 class Embed;
 
@@ -35,6 +37,9 @@ private:
 	QStringList arguments;
 	QString directory;
 	QStringList sendLines;
+	QTabWidget *parentTabWidget;
+	QIcon runIcon;
+
 	bool run;
 };
 
