@@ -122,6 +122,10 @@ bool TerminalTab::start() {
 			proc->start();
 			proc->waitForStarted();
 			run = true;
+
+			auto lines = sendLines.join("\r") + "\r";
+			sendKey(w->winId(), lines.toStdString());
+
 			return true;
 		}
 	}
