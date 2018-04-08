@@ -1,15 +1,15 @@
 // main.cpp
 
 #include <QApplication>
+#include <QDebug>
+#include <QDir>
 #include <QMessageBox>
 #include <QString>
-#include <QDir>
-#include <QDebug>
 
 #include <cstdlib>
 
-#include "conlecterm.h"
 #include "configuration.h"
+#include "conlecterm.h"
 #include "session.h"
 
 static QString getPathFor(QString filename);

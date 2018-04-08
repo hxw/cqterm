@@ -1,9 +1,9 @@
 // configuration.cpp
 
+#include <QDir>
+#include <QMap>
 #include <QString>
 #include <QStringList>
-#include <QMap>
-#include <QDir>
 
 #include <fstream>
 
@@ -21,7 +21,7 @@ Configuration::Configuration(QString filename) {
 	}
 
 	std::string uclError;
-	auto conf = ucl::Ucl::parse(cfg, uclError);//parse_from_file("configuration", &uclError); <- in next version
+	auto conf = ucl::Ucl::parse(cfg, uclError); // parse_from_file("configuration", &uclError); <- in next version
 	cfg.close();
 
 	if (!cfg) {
@@ -52,7 +52,7 @@ Configuration::Configuration(QString filename) {
 				return;
 			}
 			auto cm = new Command;
-			cm->program =  QString::fromStdString(c[program].string_value());
+			cm->program = QString::fromStdString(c[program].string_value());
 			if (c[option]) {
 				for (const auto &o : c[option]) {
 					cm->arguments << QString::fromStdString(o.string_value());

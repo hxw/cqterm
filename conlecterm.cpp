@@ -1,22 +1,22 @@
 // conlecterm.cpp
 
-#include <QWidget>
-#include <QLayout>
-#include <QDebug>
-#include <QMenu>
-#include <QIcon>
 #include <QCloseEvent>
+#include <QDebug>
+#include <QIcon>
+#include <QLayout>
+#include <QMenu>
 #include <QMessageBox>
+#include <QWidget>
 
+#include "configuration.h"
 #include "conlecterm.h"
 #include "horizontaltabs.h"
-#include "terminaltab.h"
-#include "configuration.h"
 #include "session.h"
+#include "terminaltab.h"
 
 
 Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
-	QWidget(parent), configuration(conf), session(sess) {
+		QWidget(parent), configuration(conf), session(sess) {
 
 	auto *vbox = new QVBoxLayout;
 	tabs = new HorizontalTabWidget;
@@ -37,10 +37,8 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 	setWindowTitle(tr("My Test"));
 	resize(1200, 800);
 
-
 	setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
-		this, SLOT(showContextMenu(const QPoint&)));
+	connect(this, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showContextMenu(const QPoint &)));
 }
 
 Conlecterm::~Conlecterm() {
@@ -53,7 +51,7 @@ Conlecterm::~Conlecterm() {
 
 	session->save(l);
 
-	//delete tabs; not necessary?
+	// delete tabs; not necessary?
 }
 
 
@@ -87,14 +85,13 @@ void Conlecterm::showContextMenu(const QPoint &pos) {
 		"}"
 		"QMenu::item::selected {"
 		"  background-color: #00daff;"
-		"}"
-		);
+		"}");
 
 	for (auto &s : configuration->allTabs()) {
 		sessionMenu.addAction(configuration->get(s)->name);
 	}
 
-	QAction* selectedItem = sessionMenu.exec(globalPos);
+	QAction *selectedItem = sessionMenu.exec(globalPos);
 	if (selectedItem) {
 		auto tab = configuration->get(selectedItem->text());
 		if (tab) {
@@ -108,8 +105,7 @@ void Conlecterm::showContextMenu(const QPoint &pos) {
 }
 
 
-void Conlecterm::closeEvent(QCloseEvent *event)
-{
+void Conlecterm::closeEvent(QCloseEvent *event) {
 	auto active = 0;
 	for (auto i = 0; i < tabs->count(); ++i) {
 		if (!tabs->tabIcon(i).isNull()) {

@@ -16,6 +16,14 @@ emacs-1:
 emacs-2: all
 	./${PROGRAM}
 
+.PHONY: emacs-3
+emacs-3:
+	for f in *.h *.cpp ; \
+	do \
+	  [ X"$${f#moc_}" = X"$${f}" ] && \
+	    clang-format50 -i "$${f}" ; \
+	done
+
 
 .PHONY: clean
 clean:

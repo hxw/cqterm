@@ -3,9 +3,9 @@
 #if !defined(_CONFIGURATION_H_)
 #define _CONFIGURATION_H_ 1
 
+#include <QMap>
 #include <QString>
 #include <QStringList>
-#include <QMap>
 
 typedef struct {
 	QString program;

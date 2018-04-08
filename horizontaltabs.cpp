@@ -3,11 +3,11 @@
 //   https://stackoverflow.com/questions/4802079/how-to-change-text-alignment-in-qtabwidget-in-c
 // but paint corrected to prevent crash when stylesheets was added
 
+#include <QStyle>
+#include <QStyleOption>
+#include <QStylePainter>
 #include <QTabBar>
 #include <QTabWidget>
-#include <QStyle>
-#include <QStylePainter>
-#include <QStyleOption>
 
 #include "horizontaltabs.h"
 
@@ -47,7 +47,8 @@ void HorizontalTabBar::paintEvent(QPaintEvent *) {
 		tabrect.adjust(hMargin + iconWidth, vMargin, -hMargin, -vMargin);
 		painter.drawText(tabrect, Qt::AlignTop | Qt::AlignLeft, tempText);
 
-		tempIcon.paint(&painter, hMargin, tabrect.top() + vMargin, tab.iconSize.width(), tab.iconSize.height(), Qt::AlignTop | Qt::AlignHCenter);
+		tempIcon.paint(&painter, hMargin, tabrect.top() + vMargin, tab.iconSize.width(), tab.iconSize.height(),
+			       Qt::AlignTop | Qt::AlignHCenter);
 
 		painter.end();
 	}
@@ -75,6 +76,5 @@ HorizontalTabWidget::HorizontalTabWidget(QWidget *parent) : QTabWidget(parent) {
 		"}"
 		"QTabBar::tab:hover {"
 		"  background-color: #00daff;"
-		"}"
-		);
+		"}");
 }

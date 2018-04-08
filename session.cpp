@@ -17,7 +17,7 @@ QStringList Session::load() {
 	QStringList l;
 	std::ifstream cfg(sessionFile.toStdString());
 	if (!cfg) {
-		//error = "missing session file";
+		// error = "missing session file";
 		return l;
 	}
 
@@ -26,7 +26,7 @@ QStringList Session::load() {
 	cfg.close();
 
 	if (root.isNull()) {
-		//error = "invalid JSON session file";
+		// error = "invalid JSON session file";
 		return l;
 	}
 
@@ -51,7 +51,7 @@ void Session::save(QStringList items) {
 
 	std::ofstream cfg(sessionFile.toStdString());
 	if (!cfg) {
-		//error = "missing session file";
+		// error = "missing session file";
 		return;
 	}
 	cfg << root;

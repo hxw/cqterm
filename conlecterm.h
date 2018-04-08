@@ -3,8 +3,8 @@
 #if !defined(_CONLECTERM_H_)
 #define _CONLECTERM_H_ 1
 
-#include <QTabWidget>
 #include <QEvent>
+#include <QTabWidget>
 
 #include "configuration.h"
 #include "session.h"

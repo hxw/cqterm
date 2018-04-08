@@ -1,20 +1,22 @@
 // conlecterm.cpp
 
-#include <QtWidgets>
+#include <QDebug>
 #include <QDir>
 #include <QIcon>
-#include <QDebug>
+#include <QtWidgets>
 
 #include "terminaltab.h"
 #include "xinterface.h"
 
-const // for C++ to make pixmap include compile
-#include "run.xpm"
+const		   // for C++ to make pixmap include compile
+#include "run.xpm" // …
+	int dummy; // to keep alignment
 
 
 class Embed : public QWindow {
 public:
-	explicit Embed() : QWindow() {}
+	explicit Embed() : QWindow() {
+	}
 
 	void resize(const QSize &newSize) {
 		QWindow::resize(newSize);
@@ -29,14 +31,16 @@ protected:
 		QWindow::resizeEvent(ev);
 		resize(s);
 	}
+
 private:
 };
 
 
-TerminalTab::TerminalTab(QString program_, QStringList arguments_,
-			 QString directory_, QStringList sendLines_,
+TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString directory_, QStringList sendLines_,
 			 QWidget *parent_) :
-	QWidget(parent_), program(program_), directory(directory_), sendLines(sendLines_), parentTabWidget(static_cast<QTabWidget *>(parent_)) {
+		QWidget(parent_),
+		program(program_), directory(directory_), sendLines(sendLines_),
+		parentTabWidget(static_cast<QTabWidget *>(parent_)) {
 
 	run = false;
 	runIcon.addPixmap(QPixmap(run_xpm));
@@ -63,17 +67,18 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_,
 	auto startButton = new QPushButton(tr("&Start"));
 	auto *closeButton = new QPushButton(tr("&Close"));
 
-	connect(startButton, SIGNAL (released()), this, SLOT (handleButton()));
+	connect(startButton, SIGNAL(released()), this, SLOT(handleButton()));
 
-	connect(closeButton, &QPushButton::released,
-		[=](){
-			auto index = parentTabWidget->indexOf(this);
-			parentTabWidget->removeTab(index);
-		});
+	connect(closeButton, &QPushButton::released, [=]() {
+		auto index = parentTabWidget->indexOf(this);
+		parentTabWidget->removeTab(index);
+	});
 
 
-	startButton->setStyleSheet("QPushButton {background-color: #63C163; color: green; font-size: 60pt; font-weight: bold;}");
-	closeButton->setStyleSheet("QPushButton {background-color: #C16464; color: red; font-size: 30pt; font-weight: bold;}");
+	startButton->setStyleSheet(
+		"QPushButton {background-color: #63C163; color: green; font-size: 60pt; font-weight: bold;}");
+	closeButton->setStyleSheet(
+		"QPushButton {background-color: #C16464; color: red; font-size: 30pt; font-weight: bold;}");
 
 	startButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	closeButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
@@ -88,7 +93,7 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_,
 	proc = new QProcess(this);
 
 	connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-		[=](int exitCode, QProcess::ExitStatus exitStatus){
+		[=](int exitCode, QProcess::ExitStatus exitStatus) {
 			qDebug() << "FINISHED: " << exitCode << exitStatus;
 			container->hide();
 			startClose->show();
@@ -98,13 +103,12 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_,
 
 		});
 
-	connect(proc, &QProcess::started,
-		[=](){
-			qDebug() << "Started";
-			auto index = parentTabWidget->indexOf(this);
-			parentTabWidget->setTabIcon(index, runIcon);
+	connect(proc, &QProcess::started, [=]() {
+		qDebug() << "Started";
+		auto index = parentTabWidget->indexOf(this);
+		parentTabWidget->setTabIcon(index, runIcon);
 
-		});
+	});
 	pane->addWidget(startClose);
 	pane->addWidget(container);
 	setLayout(pane);

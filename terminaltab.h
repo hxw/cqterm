@@ -3,22 +3,21 @@
 #if !defined(_TERMINALTAB_H_)
 #define _TERMINALTAB_H_ 1
 
-#include <QWidget>
+#include <QIcon>
+#include <QProcess>
+#include <QPushButton>
 #include <QTabWidget>
 #include <QVBoxLayout>
-#include <QPushButton>
-#include <QProcess>
-#include <QIcon>
+#include <QWidget>
 
 class Embed;
 
 class TerminalTab : public QWidget {
-Q_OBJECT
+	Q_OBJECT
 
 public:
-explicit TerminalTab(QString program, QStringList arguments,
-		     QString directory_, QStringList sendLines_,
-		     QWidget *parent = 0);
+	explicit TerminalTab(QString program, QStringList arguments, QString directory_, QStringList sendLines_,
+			     QWidget *parent = 0);
 	~TerminalTab();
 	bool start();
 
