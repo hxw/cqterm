@@ -25,10 +25,12 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 	tabs->setUsesScrollButtons(true);
 
 	for (auto &s : session->load()) {
-		auto tab = conf->get(s);
-		auto cmd = tab->command;
-		auto *t = new TerminalTab(cmd->program, cmd->arguments, tab->directory, tab->sendLines, tabs);
-		tabs->addTab(t, tab->name);
+		auto *tab = conf->get(s);
+                if (tab) {
+			auto cmd = tab->command;
+			auto *t = new TerminalTab(cmd->program, cmd->arguments, tab->directory, tab->sendLines, tabs);
+			tabs->addTab(t, tab->name);
+                }
 	}
 
 	vbox->addWidget(tabs);
