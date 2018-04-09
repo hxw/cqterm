@@ -19,24 +19,29 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 		QWidget(parent), configuration(conf), session(sess) {
 
 	auto *vbox = new QVBoxLayout;
+	vbox->setContentsMargins(0, 0, 0, 0);
+
 	tabs = new HorizontalTabWidget;
 
 	tabs->setMovable(true);
 	tabs->setUsesScrollButtons(true);
+	tabs->setFocusPolicy(Qt::NoFocus);
 
 	for (auto &s : session->load()) {
 		auto *tab = conf->get(s);
-                if (tab) {
+		if (tab) {
 			auto cmd = tab->command;
 			auto *t = new TerminalTab(cmd->program, cmd->arguments, tab->directory, tab->sendLines, tabs);
 			tabs->addTab(t, tab->name);
-                }
+		}
 	}
 
 	vbox->addWidget(tabs);
 
 	setLayout(vbox);
-	setWindowTitle(tr("My Test"));
+	setFocusPolicy(Qt::StrongFocus);
+
+	setWindowTitle(tr("CQterm"));
 	resize(1200, 800);
 
 	setContextMenuPolicy(Qt::CustomContextMenu);

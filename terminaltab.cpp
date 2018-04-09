@@ -31,8 +31,6 @@ protected:
 		QWindow::resizeEvent(ev);
 		resize(s);
 	}
-
-private:
 };
 
 
@@ -46,10 +44,13 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString direc
 	runIcon.addPixmap(QPixmap(run_xpm));
 
 	pane = new QVBoxLayout;
+	pane->setContentsMargins(0, 0, 0, 0);
 
 	w = new Embed;
 	container = QWidget::createWindowContainer(w);
 	container->hide();
+	container->setFocusPolicy(Qt::StrongFocus);
+	setFocusProxy(container);
 
 	// process argumenst to get window ID
 	for (auto i = 0; i < arguments_.size(); ++i) {
@@ -62,10 +63,14 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString direc
 
 
 	startClose = new QWidget;
+	startClose->setFocusPolicy(Qt::NoFocus);
 	auto *vbox = new QVBoxLayout;
 
 	auto startButton = new QPushButton(tr("&Start"));
 	auto *closeButton = new QPushButton(tr("&Close"));
+
+	startButton->setFocusPolicy(Qt::NoFocus);
+	closeButton->setFocusPolicy(Qt::NoFocus);
 
 	connect(startButton, SIGNAL(released()), this, SLOT(handleButton()));
 
@@ -107,8 +112,8 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString direc
 		qDebug() << "Started";
 		auto index = parentTabWidget->indexOf(this);
 		parentTabWidget->setTabIcon(index, runIcon);
-
 	});
+
 	pane->addWidget(startClose);
 	pane->addWidget(container);
 	setLayout(pane);
@@ -138,9 +143,10 @@ bool TerminalTab::start() {
 			proc->waitForStarted();
 			run = true;
 
-			auto lines = sendLines.join("\r") + "\r";
-			sendKey(w->winId(), lines.toStdString());
-
+			if (!sendLines.isEmpty()) {
+				auto lines = sendLines.join("\r") + "\r";
+				sendKey(w->winId(), lines.toStdString());
+			}
 			return true;
 		}
 	}

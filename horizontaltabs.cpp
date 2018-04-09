@@ -20,6 +20,7 @@ static const int iconHeight = 10;
 
 HorizontalTabBar::HorizontalTabBar(QWidget *parent) : QTabBar(parent) {
 	setIconSize(QSize(iconWidth, iconHeight));
+	setFocusPolicy(Qt::NoFocus);
 }
 
 QSize HorizontalTabBar::tabSizeHint(int) const {
