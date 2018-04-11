@@ -4,7 +4,6 @@
 #include <QStringList>
 
 #include <fstream>
-
 #include <json/json.h>
 
 #include "session.h"
@@ -54,6 +53,18 @@ void Session::save(QStringList items) {
 		// error = "missing session file";
 		return;
 	}
-	cfg << root;
+
+	Json::StreamWriterBuilder builder;
+	builder["commentStyle"] = "None";
+	builder["indentation"] = "";
+	builder["enableYAMLCompatibility"] = true;
+	builder["dropNullPlaceholders"] = true;
+	builder["omitEndingLineFeed"] = true;
+	std::unique_ptr<Json::StreamWriter> writer(builder.newStreamWriter());
+	writer->write(root, &cfg);
+	cfg << std::endl;
+
+	//cfg << root;
+        //cfg << std::endl;
 	cfg.close();
 }

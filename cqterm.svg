@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.2" width="100mm" height="100mm" viewBox="0 0 10000 10000" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="32" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+
+  <defs class="ClipPathGroup">
+    <clipPath id="the_clip_path" clipPathUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="10000" height="10000"/>
+    </clipPath>
+  </defs>
+
+  <g id="cqterm" clip-path="url(#the_clip_path)">
+
+    <g id="black-square">
+      <rect class="BoundingBox" stroke="none" fill="none" x="998" y="999" width="8002" height="8003"/>
+      <path fill="rgb(0,0,0)" stroke="none" d="M 5029,9000 L 1060,9000 999,1000 8937,1000 8998,9000 5029,9000 Z"/>
+      <path fill="none" stroke="rgb(52,101,164)" d="M 5029,9000 L 1060,9000 999,1000 8937,1000 8998,9000 5029,9000 Z"/>
+    </g>
+
+    <g id="blue-roundes-corners">
+      <rect class="BoundingBox" stroke="none" fill="none" x="1499" y="1499" width="7004" height="7004"/>
+      <path fill="rgb(114,159,207)" stroke="none" d="M 2666,1500 C 2083,1500 1500,2083 1500,2666 L 1500,7334 C 1500,7917 2083,8501 2666,8501 L 7334,8501 C 7917,8501 8501,7917 8501,7334 L 8501,2666 C 8501,2083 7917,1500 7334,1500 L 2666,1500 Z M 1500,1500 L 1500,1500 Z M 8501,8501 L 8501,8501 Z"/>
+      <path fill="none" stroke="rgb(52,101,164)" d="M 2666,1500 C 2083,1500 1500,2083 1500,2666 L 1500,7334 C 1500,7917 2083,8501 2666,8501 L 7334,8501 C 7917,8501 8501,7917 8501,7334 L 8501,2666 C 8501,2083 7917,1500 7334,1500 L 2666,1500 Z"/>
+      <path fill="none" stroke="rgb(52,101,164)" d="M 1500,1500 L 1500,1500 Z"/>
+      <path fill="none" stroke="rgb(52,101,164)" d="M 8501,8501 L 8501,8501 Z"/>
+    </g>
+
+    <g id="angle-bracket">
+      <g id="ab-top">
+        <rect class="BoundingBox" stroke="none" fill="none" x="2294" y="2294" width="1213" height="1213"/>
+        <path fill="none" stroke="rgb(255,255,255)" stroke-width="212" stroke-linejoin="round" d="M 3400,3400 L 2400,2400"/>
+      </g>
+      <g id="ab-bottom">
+        <rect class="BoundingBox" stroke="none" fill="none" x="2294" y="3194" width="1213" height="1213"/>
+        <path fill="none" stroke="rgb(255,255,255)" stroke-width="212" stroke-linejoin="round" d="M 3400,3300 L 2400,4300"/>
+      </g>
+    </g>
+
+    <g id="yellow-cursor">
+      <rect class="BoundingBox" stroke="none" fill="none" x="3894" y="4494" width="1713" height="213"/>
+      <path fill="none" stroke="rgb(255,255,0)" stroke-width="212" stroke-linejoin="round" d="M 4000,4600 L 5500,4600"/>
+    </g>
+  </g>
+
+</svg>

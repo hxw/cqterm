@@ -1,7 +1,6 @@
 // conlecterm.cpp
 
-#include <QCloseEvent>
-#include <QDebug>
+#include <QCoreApplication>
 #include <QIcon>
 #include <QLayout>
 #include <QMenu>
@@ -18,6 +17,13 @@
 Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 		QWidget(parent), configuration(conf), session(sess) {
 
+        saveChanges = false;
+
+	setWindowTitle(tr("CQterm"));
+	resize(1200, 800);
+	QIcon ico(":/application.icon");
+	setWindowIcon(ico);
+
 	auto *vbox = new QVBoxLayout;
 	vbox->setContentsMargins(0, 0, 0, 0);
 
@@ -25,7 +31,6 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 
 	tabs->setMovable(true);
 	tabs->setUsesScrollButtons(true);
-	tabs->setFocusPolicy(Qt::NoFocus);
 
 	for (auto &s : session->load()) {
 		auto *tab = conf->get(s);
@@ -37,28 +42,53 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 	}
 
 	vbox->addWidget(tabs);
-
 	setLayout(vbox);
-	setFocusPolicy(Qt::StrongFocus);
-
-	setWindowTitle(tr("CQterm"));
-	resize(1200, 800);
 
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showContextMenu(const QPoint &)));
+
+	timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(save()));
+	timer->start(10000);
+
+	connect(tabs, &HorizontalTabWidget::tabsChanged,
+		[=]() {
+                        saveChanges = true;
+                });
 }
 
+
 Conlecterm::~Conlecterm() {
-
-	// save current session
-	QStringList l;
-	for (auto i = 0; i < tabs->count(); ++i) {
-		l << tabs->tabText(i);
-	}
-
-	session->save(l);
-
+	save();
 	// delete tabs; not necessary?
+}
+
+
+// redirect key presses to the tab widget's current widget
+bool Conlecterm::event(QEvent *event) {
+	if (QEvent::KeyPress == event->type() || QEvent::KeyRelease == event->type()) {
+		if (tabs) {
+			auto *current = tabs->currentWidget();
+			if (current) {
+				QCoreApplication::sendEvent(tabs->currentWidget(), event);
+				return true;
+			}
+		}
+	}
+	return QWidget::event(event);
+}
+
+
+// save current session
+void Conlecterm::save() {
+	if (saveChanges) {
+		QStringList l;
+		for (auto i = 0; i < tabs->count(); ++i) {
+			l << tabs->tabText(i);
+		}
+		session->save(l);
+                saveChanges = false;
+        }
 }
 
 
@@ -107,7 +137,7 @@ void Conlecterm::showContextMenu(const QPoint &pos) {
 			tabs->addTab(t, tab->name);
 		}
 	} else {
-		qDebug() << "nothing was chosen";
+		// qDebug() << "nothing was chosen";
 	}
 }
 

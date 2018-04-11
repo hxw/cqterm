@@ -6,6 +6,7 @@
 #include <QTabBar>
 #include <QTabWidget>
 
+
 class HorizontalTabBar : public QTabBar {
 	Q_OBJECT
 
@@ -15,6 +16,7 @@ public:
 protected:
 	void paintEvent(QPaintEvent *ev);
 	QSize tabSizeHint(int n) const;
+
 };
 
 
@@ -23,6 +25,13 @@ class HorizontalTabWidget : public QTabWidget {
 
 public:
 	explicit HorizontalTabWidget(QWidget *parent = 0);
+
+signals:
+        void tabsChanged();
+
+protected:
+	void tabInserted(int index);
+	void tabRemoved(int index);
 };
 
 #endif

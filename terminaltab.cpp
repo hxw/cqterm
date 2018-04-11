@@ -5,33 +5,13 @@
 #include <QIcon>
 #include <QtWidgets>
 
+#include "embed.h"
 #include "terminaltab.h"
-#include "xinterface.h"
+
 
 const		   // for C++ to make pixmap include compile
 #include "run.xpm" // …
 	int dummy; // to keep alignment
-
-
-class Embed : public QWindow {
-public:
-	explicit Embed() : QWindow() {
-	}
-
-	void resize(const QSize &newSize) {
-		QWindow::resize(newSize);
-		auto w = newSize.width();
-		auto h = newSize.height();
-		resizeChild(winId(), w, h);
-	}
-
-protected:
-	void resizeEvent(QResizeEvent *ev) {
-		auto s = ev->size();
-		QWindow::resizeEvent(ev);
-		resize(s);
-	}
-};
 
 
 TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString directory_, QStringList sendLines_,
@@ -48,6 +28,7 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString direc
 
 	w = new Embed;
 	container = QWidget::createWindowContainer(w);
+
 	container->hide();
 	container->setFocusPolicy(Qt::StrongFocus);
 	setFocusProxy(container);
@@ -100,6 +81,7 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString direc
 	connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
 		[=](int exitCode, QProcess::ExitStatus exitStatus) {
 			qDebug() << "FINISHED: " << exitCode << exitStatus;
+			w->end();
 			container->hide();
 			startClose->show();
 			run = false;
@@ -141,17 +123,29 @@ bool TerminalTab::start() {
 
 			proc->start();
 			proc->waitForStarted();
+			w->begin();
 			run = true;
 
 			if (!sendLines.isEmpty()) {
 				auto lines = sendLines.join("\r") + "\r";
-				sendKey(w->winId(), lines.toStdString());
+				w->sendKeys(lines);
 			}
 			return true;
 		}
 	}
 	return false;
 }
+
+
+void TerminalTab::keyPressEvent(QKeyEvent *event) {
+	w->sendKey(true, event);
+}
+
+
+void TerminalTab::keyReleaseEvent(QKeyEvent *event) {
+	w->sendKey(false, event);
+}
+
 
 TerminalTab::~TerminalTab() {
 	if (proc) {

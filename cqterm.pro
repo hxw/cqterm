@@ -7,6 +7,7 @@ HEADERS       = configuration.h \
                 session.h \
                 conlecterm.h \
                 terminaltab.h \
+                embed.h \
                 horizontaltabs.h \
                 run.xpm \
                 xinterface.h
@@ -14,9 +15,12 @@ SOURCES       = configuration.cpp \
                 session.cpp \
                 conlecterm.cpp \
                 terminaltab.cpp \
+                embed.cpp \
                 horizontaltabs.cpp \
                 xinterface.cpp \
                 main.cpp
+
+RESOURCES    += cqterm.qrc
 
 # install
 target.path = dist

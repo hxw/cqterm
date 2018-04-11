@@ -3,7 +3,10 @@
 #if !defined(_XINTERFACE_H_)
 #define _XINTERFACE_H_ 1
 
-void resizeChild(int winId, int w, int h);
-void sendKey(int winId, std::string lines);
+int getChildIdFrom(int winId);
+void resizeChild(int childId, int w, int h);
+void sendKeysToChild(int childId, std::string lines);
+
+void sendKeyCode(int childId, bool press, int modifiers, int scancode);
 
 #endif

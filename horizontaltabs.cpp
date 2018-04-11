@@ -11,8 +11,8 @@
 
 #include "horizontaltabs.h"
 
-static const int tabWidth = 120;
-static const int tabHeight = 20;
+static const int tabWidth = 140;
+static const int tabHeight = 24;
 static const int hMargin = 4;
 static const int vMargin = 2;
 static const int iconWidth = 10;
@@ -57,7 +57,8 @@ void HorizontalTabBar::paintEvent(QPaintEvent *) {
 
 
 HorizontalTabWidget::HorizontalTabWidget(QWidget *parent) : QTabWidget(parent) {
-	setTabBar(new HorizontalTabBar());
+	auto *bar = new HorizontalTabBar();
+	setTabBar(bar);
 	setTabPosition(QTabWidget::West);
 	setStyleSheet(
 		"QTabBar {"
@@ -78,4 +79,23 @@ HorizontalTabWidget::HorizontalTabWidget(QWidget *parent) : QTabWidget(parent) {
 		"QTabBar::tab:hover {"
 		"  background-color: #00daff;"
 		"}");
+
+	connect(bar, QOverload<int, int>::of(&QTabBar::tabMoved),
+		[=](int from, int to) {
+                        (void)from;
+                        (void)to;
+			emit tabsChanged();
+                });
+}
+
+
+void HorizontalTabWidget::tabInserted(int index) {
+        (void)index;
+        emit tabsChanged();
+}
+
+
+void HorizontalTabWidget::tabRemoved(int index) {
+        (void)index;
+        emit tabsChanged();
 }

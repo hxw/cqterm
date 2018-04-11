@@ -3,14 +3,17 @@
 #if !defined(_TERMINALTAB_H_)
 #define _TERMINALTAB_H_ 1
 
+#include <QCoreApplication>
 #include <QIcon>
+#include <QKeyEvent>
 #include <QProcess>
 #include <QPushButton>
 #include <QTabWidget>
 #include <QVBoxLayout>
 #include <QWidget>
 
-class Embed;
+#include "embed.h"
+
 
 class TerminalTab : public QWidget {
 	Q_OBJECT
@@ -23,6 +26,10 @@ public:
 
 private slots:
 	void handleButton();
+
+protected:
+	void keyPressEvent(QKeyEvent *event);
+	void keyReleaseEvent(QKeyEvent *event);
 
 private:
 	QVBoxLayout *pane;

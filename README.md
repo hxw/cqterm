@@ -13,14 +13,7 @@
     + commands like urxvt, xterm (emacs/vim should also work)
     + tabs to specify tab text, command, start directory and initial commands
 * JSON session file keeps tab order
-    + always save on exit
-    + save on tab order change or tab append (*MISSING*)
+    + save on exit
+    + save on tab order change or tab append
 * active tab indication
 * use of `XDG_CONFIG_HOME` to store conf/session files
-
-
-# to fix
-
-* tab order changed => save-session
-* click to focus on terminal
-    +  mouse must be over termial window to receive input

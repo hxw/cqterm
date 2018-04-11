@@ -7,32 +7,48 @@
 #include <unistd.h>
 
 
-void resizeChild(int winId, int w, int h) {
+// wait for a sub window to be establisheshed and get its ID
+int getChildIdFrom(int winId) {
 
 	auto *d = XOpenDisplay(NULL);
+	auto done = false;
+	auto childId = 0; // error
 
-	Window rootWindow = 0;
-	Window parentWindow = 0;
-	unsigned int childCount = 0;
-	Window *childWindows = NULL;
+	for (auto i = 0; !done && i < 20; ++i) {
 
-	Status s = XQueryTree(d, winId, &rootWindow, &parentWindow, &childWindows, &childCount);
+		Window rootWindow = 0;
+		Window parentWindow = 0;
+		unsigned int childCount = 0;
+		Window *childWindows = NULL;
 
-	if (0 != s) {
+		Status s = XQueryTree(d, winId, &rootWindow, &parentWindow, &childWindows, &childCount);
+
+		if (0 != s) {
 #if 0
-		std::cout << "rw: " << rootWindow << std::endl;
-		std::cout << "pw: " << parentWindow << std::endl;
-		std::cout << "Nc: " << childCount << std::endl;
+			std::cout << "rw: " << rootWindow << std::endl;
+			std::cout << "pw: " << parentWindow << std::endl;
+			std::cout << "Nc: " << childCount << std::endl;
 #endif
-		if (childCount >= 1) {
+			if (childCount >= 1) {
 #if 0
-			std::cout << "c0: " << childWindows[0] << std::endl;
+				std::cout << "c0: " << childWindows[0] << std::endl;
 #endif
-			XResizeWindow(d, childWindows[0], w, h);
+				childId = childWindows[0];
+				done = true;
+				break;
+			}
 		}
+		usleep(25000); // delay to allow child application to open its windows
+		XFree(childWindows);
 	}
-	XFree(childWindows);
+	XCloseDisplay(d);
+	return childId;
+}
 
+
+void resizeChild(int childId, int w, int h) {
+	auto *d = XOpenDisplay(NULL);
+	XResizeWindow(d, childId, w, h);
 	XCloseDisplay(d);
 }
 
@@ -102,47 +118,51 @@ static const keymapping keys[] = {
 };
 
 
-void sendKey(int winId, std::string lines) {
+void sendKeysToChild(int childId, std::string lines) {
 
 	auto *d = XOpenDisplay(NULL);
-	auto done = false;
 
-	for (auto i = 0; !done && i < 20; ++i) {
-		usleep(25000);
+	for (auto &c : lines) {
+		for (unsigned int i = 0; i < sizeof(keys); ++i) {
+			if (keys[i].c == c) {
+				XKeyEvent ev = {};
+				ev.type = KeyPress;
+				ev.display = d;
+				ev.root = DefaultRootWindow(d);
+				ev.window = childId;
+				ev.state = keys[i].state;
+				ev.keycode = XKeysymToKeycode(d, keys[i].keycode);
 
-		Window rootWindow = 0;
-		Window parentWindow = 0;
-		unsigned int childCount = 0;
-		Window *childWindows = NULL;
+				XSendEvent(d, childId, true, KeyPressMask, (XEvent *)(&ev));
+				ev.type = KeyRelease;
+				XSendEvent(d, childId, true, KeyReleaseMask, (XEvent *)(&ev));
 
-		Status s = XQueryTree(d, winId, &rootWindow, &parentWindow, &childWindows, &childCount);
-
-		if ((0 != s) && (childCount >= 1)) {
-
-			for (auto &c : lines) {
-				for (unsigned int i = 0; i < sizeof(keys); ++i) {
-					if (keys[i].c == c) {
-						XKeyEvent ev = {};
-						ev.type = KeyPress;
-						ev.display = d;
-						ev.root = rootWindow;
-						ev.window = childWindows[0];
-						ev.state = keys[i].state;
-						ev.keycode = XKeysymToKeycode(d, keys[i].keycode);
-
-						XSendEvent(d, childWindows[0], true, KeyPressMask, (XEvent *)(&ev));
-						ev.type = KeyRelease;
-						XSendEvent(d, childWindows[0], true, KeyReleaseMask, (XEvent *)(&ev));
-
-						XFlush(d);
-						usleep(1000);
-						break;
-					}
-				}
+				XFlush(d);
+				usleep(1000);
+				break;
 			}
-			done = true;
 		}
-		XFree(childWindows);
 	}
+
+	XCloseDisplay(d);
+}
+
+
+void sendKeyCode(int childId, bool press, int modifiers, int scancode) {
+	auto *d = XOpenDisplay(NULL);
+
+	auto mask = press ? KeyPressMask : KeyReleaseMask;
+
+	XKeyEvent ev = {};
+	ev.type = press ? KeyPress : KeyRelease;
+	ev.display = d;
+	ev.root = DefaultRootWindow(d);
+	ev.window = childId;
+	ev.state = modifiers;
+	ev.keycode = scancode;
+
+	XSendEvent(d, childId, true, mask, (XEvent *)(&ev));
+
+	XFlush(d);
 	XCloseDisplay(d);
 }
