@@ -12,55 +12,46 @@
 
     <g id="background">
       <rect class="BoundingBox" stroke="none" fill="none" x="0" y="0" width="10000" height="10000"/>
-      <path fill="rgba(100,100,100,128)" stroke="none" d="M 0,0 L 10000,0 10000,10000 0,10000 0,0 Z"/>
+      <path fill="rgb(80,80,80)" stroke="none" d="M 0,0 L 10000,0 10000,10000 0,10000 0,0 Z"/>
     </g>
 
     <g id="frame">
       <rect class="BoundingBox" stroke="none" fill="none" x="1000" y="1000" width="8000" height="8000"/>
-      <path fill="none" stroke="rgb(0,0,0)" d="M 1000,1000 L 9000,1000 9000,9000 1000,9000 1000,1000 Z"/>
-      <path fill="none" stroke="rgb(0,0,0)" d="M 1000,1400 L 9000,1400 Z"/>
-      <path fill="rgb(70,50,195)" stroke="none" d="M 1000,1000 L 9000,1000 9000,1400 1000,1400 1000,1000 Z"/>
+      <path fill="none" stroke="rgb(0,0,0)" stroke-width="5" d="M 1000,1000 L 9000,1000 9000,9000 1000,9000 1000,1000 Z"/>
+      <path fill="none" stroke="rgb(0,0,0)" stroke-width="5" d="M 1000,1500 L 9000,1500 Z"/>
+      <path fill="rgb(90,20,160)" stroke="none" d="M 1000,1000 L 9000,1000 9000,1500 1000,1500 1000,1000 Z"/>
     </g>
 
     <g id="tabs">
       <rect class="BoundingBox" stroke="none" fill="none" x="1000" y="1000" width="1000" height="8000"/>
-      <path fill="none" stroke="rgb(0,0,0)" d="M 2000,1400 L 2000,9000 Z"/>
+      <path fill="none" stroke="rgb(0,0,0)" d="M 2000,1500 L 2000,9000 Z"/>
 
-      <path fill="rgb(166,208,255)" stroke="none" d="M 1000,1400 L 2000,1400 2000,5500 1000,5500 1000,1400 Z"/>
-      <path fill="rgb(200,200,200)" stroke="none" d="M 1000,5500 L 2000,5500 2000,9000 1000,9000 1000,5500 Z"/>
+      <path fill="rgb(166,208,255)" stroke="none" d="M 1000,1500 L 3000,1500 3000,5500 1000,5500 1000,1500 Z"/>
+      <path fill="rgb(200,200,200)" stroke="none" d="M 1000,5500 L 3000,5500 3000,9000 1000,9000 1000,5500 Z"/>
 
-      <path fill="rgb(255,208,255)" stroke="none" d="M 1000,3000 L 2000,3000 2000,3500 1000,3500 1000,3000 Z"/>
+      <path fill="rgb(255,208,255)" stroke="none" d="M 1000,2500 L 3000,2500 3000,3500 1000,3500 1000,2500 Z"/>
 
-      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,1700 L 1700,1700 1700,1800 1200,1800 1200,1700 Z"/>
-      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,2200 L 1700,2200 1700,2300 1200,2300 1200,2200 Z"/>
-      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,2700 L 1700,2700 1700,2800 1200,2800 1200,2700 Z"/>
-      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,3200 L 1700,3200 1700,3300 1200,3300 1200,3200 Z"/>
-      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,3700 L 1700,3700 1700,3800 1200,3800 1200,3700 Z"/>
-      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,4200 L 1700,4200 1700,4300 1200,4300 1200,4200 Z"/>
-      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,4700 L 1700,4700 1700,4800 1200,4800 1200,4700 Z"/>
-      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,5200 L 1700,5200 1700,5300 1200,5300 1200,5200 Z"/>
+      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,1900 L 2400,1900 2400,2100 1200,2100 1200,1900 Z"/>
+      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,2900 L 2400,2900 2400,3100 1200,3100 1200,2900 Z"/>
+      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,3900 L 2400,3900 2400,4100 1200,4100 1200,3900 Z"/>
+      <path fill="rgb(0,0,0)" stroke="none" d="M 1200,4900 L 2400,4900 2400,5100 1200,5100 1200,4900 Z"/>
     </g>
 
     <g id="terminal">
-      <rect class="BoundingBox" stroke="none" fill="none" x="2000" y="1400" width="6000" height="6000"/>
-      <path fill="rgb(0,0,189)" stroke="none" d="M 2000,1400 L 9000,1400 9000,9000 2000,9000 2000,1400 Z"/>
+      <rect class="BoundingBox" stroke="none" fill="none" x="3000" y="1500" width="6000" height="6000"/>
+      <path fill="rgb(0,0,189)" stroke="none" d="M 3000,1500 L 9000,1500 9000,9000 3000,9000 3000,1500 Z"/>
     </g>
 
     <g id="angle-bracket">
-      <g id="ab-top">
-        <rect class="BoundingBox" stroke="none" fill="none" x="2294" y="2294" width="1213" height="1213"/>
-        <path fill="none" stroke="rgb(255,255,255)" stroke-width="212" stroke-linejoin="round" d="M 3400,3400 L 2400,2400"/>
-      </g>
-      <g id="ab-bottom">
-        <rect class="BoundingBox" stroke="none" fill="none" x="2294" y="3194" width="1213" height="1213"/>
-        <path fill="none" stroke="rgb(255,255,255)" stroke-width="212" stroke-linejoin="round" d="M 3400,3300 L 2400,4300"/>
-      </g>
+      <rect class="BoundingBox" stroke="none" fill="none" x="3000" y="1500" width="6000" height="6000"/>
+      <path fill="none" stroke="rgb(255,255,255)" stroke-width="212" stroke-linejoin="round" d="M 3400,2000 L 4400,3000 3400,4000"/>
     </g>
 
     <g id="yellow-cursor">
-      <rect class="BoundingBox" stroke="none" fill="none" x="3894" y="4494" width="1713" height="213"/>
-      <path fill="none" stroke="rgb(255,255,0)" stroke-width="212" stroke-linejoin="round" d="M 4000,4600 L 5500,4600"/>
+      <rect class="BoundingBox" stroke="none" fill="none" x="3000" y="1500" width="6000" height="6000"/>
+      <path fill="none" stroke="rgb(255,255,0)" stroke-width="212" stroke-linejoin="round" d="M 5000,4200 L 6500,4200"/>
     </g>
+
   </g>
 
 </svg>
