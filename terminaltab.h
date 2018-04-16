@@ -31,6 +31,12 @@ protected:
 	void keyPressEvent(QKeyEvent *event);
 	void keyReleaseEvent(QKeyEvent *event);
 
+        // make Tab a normal key
+        bool focusNextPrevChild(bool next) {
+                (void)(next);
+                return false;
+        }
+
 private:
 	QVBoxLayout *pane;
 
