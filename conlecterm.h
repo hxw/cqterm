@@ -1,4 +1,4 @@
-// conlecterm.h
+// conlecterm.h          -*- mode: c++ -*-
 
 #if !defined(_CONLECTERM_H_)
 #define _CONLECTERM_H_ 1

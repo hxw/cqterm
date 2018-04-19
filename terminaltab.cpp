@@ -1,4 +1,4 @@
-// conlecterm.cpp
+// conlecterm.cpp        -*- mode: c++ -*-
 
 #include <QDebug>
 #include <QDir>

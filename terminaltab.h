@@ -1,4 +1,4 @@
-// terminaltab.h
+// terminaltab.h         -*- mode: c++ -*-
 
 #if !defined(_TERMINALTAB_H_)
 #define _TERMINALTAB_H_ 1

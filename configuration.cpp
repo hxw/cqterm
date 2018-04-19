@@ -1,4 +1,4 @@
-// configuration.cpp
+// configuration.cpp     -*- mode: c++ -*-
 
 #include <QDir>
 #include <QMap>

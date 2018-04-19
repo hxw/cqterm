@@ -1,4 +1,4 @@
-// embed.h
+// embed.h               -*- mode: c++ -*-
 
 #if !defined(_EMBED_H_)
 #define _EMBED_H_ 1
@@ -26,6 +26,9 @@ protected:
 
 private:
 	int childId;
+        int width;
+        int height;
+        bool wantResize;
 };
 
 #endif

@@ -1,4 +1,4 @@
-// xinterface.cpp
+// xinterface.cpp        -*- mode: c++ -*-
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -38,10 +38,11 @@ int getChildIdFrom(int winId) {
 				break;
 			}
 		}
-		usleep(25000); // delay to allow child application to open its windows
 		XFree(childWindows);
+		usleep(25000); // delay to allow child application to open its windows
 	}
 	XCloseDisplay(d);
+	usleep(25000); // delay to allow child application to open its windows
 	return childId;
 }
 

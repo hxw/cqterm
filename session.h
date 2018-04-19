@@ -1,4 +1,4 @@
-// session.h
+// session.h             -*- mode: c++ -*-
 
 #if !defined(_SESSION_H_)
 #define _SESSION_H_ 1

@@ -1,4 +1,4 @@
-// configuration.h
+// configuration.h       -*- mode: c++ -*-
 
 #if !defined(_CONFIGURATION_H_)
 #define _CONFIGURATION_H_ 1

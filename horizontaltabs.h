@@ -1,4 +1,4 @@
-// horizontaltabs.h
+// horizontaltabs.h      -*- mode: c++ -*-
 
 #if !defined(_HORIZONTALTABS_H_)
 #define _HORIZONTALTABS_H_ 1

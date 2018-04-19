@@ -1,4 +1,4 @@
-// horizontaltabs.cpp
+// horizontaltabs.cpp    -*- mode: c++ -*-
 // code extracted from:
 //   https://stackoverflow.com/questions/4802079/how-to-change-text-alignment-in-qtabwidget-in-c
 // but paint corrected to prevent crash when stylesheets was added

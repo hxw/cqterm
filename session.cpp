@@ -1,4 +1,4 @@
-// session.cpp
+// session.cpp           -*- mode: c++ -*-
 
 #include <QString>
 #include <QStringList>

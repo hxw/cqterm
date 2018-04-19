@@ -1,4 +1,4 @@
-// xinterface.h
+// xinterface.h          -*- mode: c++ -*-
 
 #if !defined(_XINTERFACE_H_)
 #define _XINTERFACE_H_ 1

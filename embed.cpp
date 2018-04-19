@@ -1,4 +1,4 @@
-// embed.cpp
+// embed.cpp             -*- mode: c++ -*-
 
 #include <QKeyEvent>
 #include <QString>
@@ -10,6 +10,7 @@
 
 Embed::Embed() : QWindow() {
 	childId = 0;
+        wantResize = false;
 }
 
 
@@ -20,21 +21,29 @@ Embed::~Embed() {
 
 void Embed::begin() {
 	childId = getChildIdFrom(winId());
+	if (wantResize && childId > 0) {
+		resizeChild(childId, width, height);
+                wantResize = false;
+        }
 }
 
 
 void Embed::end() {
 	childId = 0;
+        wantResize = false;
 }
 
 
 void Embed::resize(const QSize &newSize) {
 	QWindow::resize(newSize);
+	width = newSize.width();
+	height = newSize.height();
 	if (childId > 0) {
-		auto w = newSize.width();
-		auto h = newSize.height();
-		resizeChild(childId, w, h);
-	}
+		resizeChild(childId, width, height);
+                wantResize = false;
+	} else {
+                wantResize = true;
+        }
 }
 
 
