@@ -28,7 +28,9 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 	auto *vbox = new QVBoxLayout;
 	vbox->setContentsMargins(0, 0, 0, 0);
 
-	tabs = new HorizontalTabWidget;
+	auto layout = conf->getLayout();
+	tabs = new HorizontalTabWidget(0, layout.tabWidth, layout.tabHeight, layout.hMargin, layout.vMargin,
+				       layout.iconWidth, layout.iconHeight, layout.fontPoints);
 
 	tabs->setMovable(true);
 	tabs->setUsesScrollButtons(true);

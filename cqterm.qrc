@@ -2,6 +2,7 @@
 <RCC version="1.0">
   <qresource>
     <file alias="application.icon">cqterm.svg</file>
+    <file alias="run.icon">run.svg</file>
     <file alias="default.conf">cqterm.conf</file>
     <file alias="default.session">session.json</file>
   </qresource>

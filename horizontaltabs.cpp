@@ -11,14 +11,40 @@
 
 #include "horizontaltabs.h"
 
-static const int tabWidth = 140;
-static const int tabHeight = 24;
-static const int hMargin = 4;
-static const int vMargin = 2;
-static const int iconWidth = 10;
-static const int iconHeight = 10;
+static const int defaultTabWidth = 140;
+static const int defaultTabHeight = 24;
+static const int defaultHMargin = 4;
+static const int defaultVMargin = 2;
+static const int defaultIconWidth = 10;
+static const int defaultIconHeight = 10;
+static const int defaultFontPoints = 12;
 
-HorizontalTabBar::HorizontalTabBar(QWidget *parent) : QTabBar(parent) {
+
+HorizontalTabBar::HorizontalTabBar(QWidget *parent, int _tabWidth, int _tabHeight, int _hMargin, int _vMargin,
+				   int _iconWidth, int _iconHeight) :
+		QTabBar(parent),
+		tabWidth(_tabWidth), tabHeight(_tabHeight), hMargin(_hMargin), vMargin(_vMargin), iconWidth(_iconWidth),
+		iconHeight(_iconHeight) {
+
+        if (0 == tabWidth) {
+                tabWidth = defaultTabWidth;
+        }
+        if (0 == tabHeight) {
+                tabHeight = defaultTabHeight;
+        }
+        if (0 == hMargin) {
+                hMargin = defaultHMargin;
+        }
+        if (0 == vMargin) {
+                vMargin = defaultVMargin;
+        }
+        if (0 == iconWidth) {
+                iconWidth = defaultIconWidth;
+        }
+        if (0 == iconHeight) {
+                iconHeight = defaultIconHeight;
+        }
+
 	setIconSize(QSize(iconWidth, iconHeight));
 	setFocusPolicy(Qt::NoFocus);
 }
@@ -56,13 +82,21 @@ void HorizontalTabBar::paintEvent(QPaintEvent *) {
 }
 
 
-HorizontalTabWidget::HorizontalTabWidget(QWidget *parent) : QTabWidget(parent) {
-	auto *bar = new HorizontalTabBar();
+HorizontalTabWidget::HorizontalTabWidget(QWidget *parent, int tabWidth, int tabHeight, int hMargin, int vMargin,
+					 int iconWidth, int iconHeight, int fontPoints) :
+		QTabWidget(parent) {
+
+        if (0 == fontPoints) {
+                fontPoints = defaultFontPoints;
+        }
+
+	auto *bar = new HorizontalTabBar(parent, tabWidth, tabHeight, hMargin, vMargin, iconWidth, iconHeight);
 	setTabBar(bar);
 	setTabPosition(QTabWidget::West);
-	setStyleSheet(
+
+        setStyleSheet(
 		"QTabBar {"
-		"  font-size: 12pt;"
+		"  font-size: " + QString::number(fontPoints) + "pt;"
 		"  font-weight: bold;"
 		"}"
 		"QTabBar::tab {"

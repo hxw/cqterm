@@ -20,6 +20,15 @@ typedef struct Tab {
 	QStringList sendLines;
 } Tab;
 
+typedef struct Layout {
+        int tabWidth;
+	int tabHeight;
+	int hMargin;
+	int vMargin;
+	int iconWidth;
+	int iconHeight;
+	int fontPoints;
+} Layout;
 
 class Configuration {
 public:
@@ -31,6 +40,10 @@ public:
 
 	const Tab *get(QString name) const {
 		return tabs[name];
+	}
+
+	const Layout &getLayout() const {
+		return layout;
 	}
 
 	bool isValid() const {
@@ -46,6 +59,7 @@ private:
 	QMap<QString, Tab *> tabs;
 	QStringList tabList;
 	QString error;
+        Layout layout;
 };
 
 #endif

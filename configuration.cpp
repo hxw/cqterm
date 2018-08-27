@@ -4,6 +4,7 @@
 #include <QMap>
 #include <QString>
 #include <QStringList>
+#include <QDebug>
 
 #include <fstream>
 
@@ -120,6 +121,40 @@ Configuration::Configuration(QString filename) {
 	} else {
 		error = "configuration file has no tabs";
 		return;
+	}
+
+	static std::string theLayout("layout");
+	static std::string tabWidth("tab-width");
+	static std::string tabHeight("tab-height");
+	static std::string hMargin("h-margin");
+	static std::string vMargin("v-margin");
+	static std::string iconWidth("icon-width");
+	static std::string iconHeight("icon-height");
+	static std::string fontPoints("font-points");
+
+	auto layouts = conf[theLayout];
+	if (layouts) {
+		if (layouts[tabWidth]) {
+			layout.tabWidth = layouts[tabWidth].int_value();
+		}
+                if (layouts[tabHeight]) {
+                        layout.tabHeight = layouts[tabHeight].int_value();
+                }
+                if (layouts[hMargin]) {
+                        layout.hMargin = layouts[hMargin].int_value();
+                }
+                if (layouts[vMargin]) {
+                        layout.vMargin = layouts[vMargin].int_value();
+                }
+                if (layouts[iconWidth]) {
+                        layout.iconWidth = layouts[iconWidth].int_value();
+                }
+                if (layouts[iconHeight]) {
+                        layout.iconHeight = layouts[iconHeight].int_value();
+                }
+                if (layouts[fontPoints]) {
+                        layout.fontPoints = layouts[fontPoints].int_value();
+                }
 	}
 
 	valid = true;

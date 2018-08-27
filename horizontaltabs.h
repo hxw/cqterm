@@ -11,12 +11,22 @@ class HorizontalTabBar : public QTabBar {
 	Q_OBJECT
 
 public:
-	explicit HorizontalTabBar(QWidget *parent = 0);
+	explicit HorizontalTabBar(QWidget *parent = 0, int _tabWidth = 0,
+				  int _tabHeight = 0, int _hMargin = 0,
+				  int _vMargin = 0, int _iconWidth = 0,
+				  int _iconHeight = 0);
 
 protected:
 	void paintEvent(QPaintEvent *ev);
 	QSize tabSizeHint(int n) const;
 
+private:
+	int tabWidth;
+	int tabHeight;
+	int hMargin;
+	int vMargin;
+	int iconWidth;
+	int iconHeight;
 };
 
 
@@ -24,7 +34,10 @@ class HorizontalTabWidget : public QTabWidget {
 	Q_OBJECT
 
 public:
-	explicit HorizontalTabWidget(QWidget *parent = 0);
+	explicit HorizontalTabWidget(QWidget *parent = 0, int tabWidth = 0,
+				     int tabHeight = 0, int hMargin = 0,
+				     int vMargin = 0, int iconWidth = 0,
+				     int iconHeight = 0, int fontPoints = 0);
 
 signals:
         void tabsChanged();

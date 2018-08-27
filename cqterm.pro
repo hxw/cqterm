@@ -11,7 +11,6 @@ HEADERS       = configuration.h \
                 terminaltab.h \
                 embed.h \
                 horizontaltabs.h \
-                run.xpm \
                 xinterface.h
 SOURCES       = configuration.cpp \
                 session.cpp \
@@ -48,7 +47,7 @@ target.path   = $${BIN_DIR}
 target.files  = cqterm
 
 icons.path    = $${ICONS_DIR}
-icons.files   = cqterm.svg
+icons.files   = cqterm.svg run.svg
 
 conf.path     = $${EXAMPLES_DIR}
 conf.files    = cqterm.conf session.json

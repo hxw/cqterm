@@ -9,11 +9,6 @@
 #include "terminaltab.h"
 
 
-const		   // for C++ to make pixmap include compile
-#include "run.xpm" // …
-	int dummy; // to keep alignment
-
-
 TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString directory_, QStringList sendLines_,
 			 QWidget *parent_) :
 		QWidget(parent_),
@@ -21,7 +16,7 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString direc
 		parentTabWidget(static_cast<QTabWidget *>(parent_)) {
 
 	run = false;
-	runIcon.addPixmap(QPixmap(run_xpm));
+	runIcon = QIcon(":/run.icon");
 
 	pane = new QVBoxLayout;
 	pane->setContentsMargins(0, 0, 0, 0);
