@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.2" width="100mm" height="100mm" viewBox="0 0 10000 10000" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="32" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+
+  <defs class="ClipPathGroup">
+    <clipPath id="the_clip_path" clipPathUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="10000" height="10000"/>
+    </clipPath>
+  </defs>
+
+  <g id="run" clip-path="url(#the_clip_path)">
+
+    <g id="arrow">
+      <rect class="BoundingBox" stroke="none" fill="none" x="0" y="0" width="10000" height="10000"/>
+      <path fill="rgb(255,0,0)" stroke="none" d="M 1000,3000 L 6000,3000 6000,1000 9000,5000,
+                                                 6000,9000 6000,7000 1000,7000 1000,3000 Z"/>
+    </g>
+
+  </g>
+
+</svg>
