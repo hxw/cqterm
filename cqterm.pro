@@ -2,6 +2,13 @@
 
 QT += widgets
 
+QMAKE_CXXFLAGS += -fsanitize=address
+QMAKE_CXXFLAGS += -fno-omit-frame-pointer
+QMAKE_CXXFLAGS += -Wshadow-uncaptured-local
+#QMAKE_CXXFLAGS += -Wshadow-compatible-local ## ¿clang 8+?
+
+QMAKE_LFLAGS += -fsanitize=address
+
 INCPATH      += /usr/local/include
 INCPATH      += /usr/local/include/jsoncpp
 LIBS         += -lX11 -lucl -ljsoncpp
