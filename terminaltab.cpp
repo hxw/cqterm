@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QIcon>
 #include <QtWidgets>
+#include <unistd.h> // usleep()
 
 #include "embed.h"
 #include "terminaltab.h"
@@ -27,6 +28,7 @@ TerminalTab::TerminalTab(QString program_, QStringList arguments_, QString direc
 	container->hide();
 	container->setFocusPolicy(Qt::StrongFocus);
 	setFocusProxy(container);
+	setFocusPolicy(Qt::NoFocus);
 
 	// process argumenst to get window ID
 	for (auto i = 0; i < arguments_.size(); ++i) {
@@ -122,6 +124,7 @@ bool TerminalTab::start() {
 			run = true;
 
 			if (!sendLines.isEmpty()) {
+                                usleep(1000);
 				auto lines = sendLines.join("\r") + "\r";
 				w->sendKeys(lines);
 			}

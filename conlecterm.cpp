@@ -23,7 +23,8 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 	resize(1200, 800);
 	QIcon ico(":/application.icon");
 	setWindowIcon(ico);
-	setFocusPolicy(Qt::StrongFocus);
+	setFocusPolicy(Qt::NoFocus);
+	//setFocusPolicy(Qt::StrongFocus);
 
 	auto *vbox = new QVBoxLayout;
 	vbox->setContentsMargins(0, 0, 0, 0);

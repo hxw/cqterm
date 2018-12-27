@@ -120,6 +120,7 @@ HorizontalTabWidget::HorizontalTabWidget(QWidget *parent, int tabWidth, int tabH
                         (void)to;
 			emit tabsChanged();
                 });
+	setFocusPolicy(Qt::NoFocus);
 }
 
 

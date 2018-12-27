@@ -30,6 +30,12 @@ protected:
 	void closeEvent(QCloseEvent *event);
 	bool event(QEvent *event);
 
+	// make Tab a normal key
+	bool focusNextPrevChild(bool next) {
+                (void)(next);
+                return false;
+        }
+
 private:
 	HorizontalTabWidget *tabs;
 	Configuration *configuration;

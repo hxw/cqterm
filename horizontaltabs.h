@@ -20,6 +20,12 @@ protected:
 	void paintEvent(QPaintEvent *ev);
 	QSize tabSizeHint(int n) const;
 
+	// make Tab a normal key
+	bool focusNextPrevChild(bool next) {
+                (void)(next);
+                return false;
+        }
+
 private:
 	int tabWidth;
 	int tabHeight;
@@ -38,6 +44,14 @@ public:
 				     int tabHeight = 0, int hMargin = 0,
 				     int vMargin = 0, int iconWidth = 0,
 				     int iconHeight = 0, int fontPoints = 0);
+
+protected:
+	// make Tab a normal key
+	bool focusNextPrevChild(bool next) {
+                (void)(next);
+                return false;
+        }
+
 
 signals:
         void tabsChanged();
