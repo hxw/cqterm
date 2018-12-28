@@ -15,16 +15,18 @@
 
 
 Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
-		QWidget(parent), configuration(conf), session(sess) {
+		QMainWindow(parent), configuration(conf), session(sess) {
 
         saveChanges = false;
+
+        this->cq=new QWidget();
 
 	setWindowTitle(tr("CQterm"));
 	resize(1200, 800);
 	QIcon ico(":/application.icon");
 	setWindowIcon(ico);
 	setFocusPolicy(Qt::NoFocus);
-	//setFocusPolicy(Qt::StrongFocus);
+	this->cq->setFocusPolicy(Qt::StrongFocus);
 
 	auto *vbox = new QVBoxLayout;
 	vbox->setContentsMargins(0, 0, 0, 0);
@@ -35,6 +37,7 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 
 	tabs->setMovable(true);
 	tabs->setUsesScrollButtons(true);
+	tabs->setFocusPolicy(Qt::NoFocus);
 
 	for (auto &s : session->load()) {
 		auto *tab = conf->get(s);
@@ -46,7 +49,8 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 	}
 
 	vbox->addWidget(tabs);
-	setLayout(vbox);
+	this->cq->setLayout(vbox);
+        setCentralWidget(this->cq);
 
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showContextMenu(const QPoint &)));

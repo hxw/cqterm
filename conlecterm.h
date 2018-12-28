@@ -5,6 +5,7 @@
 
 #include <QCloseEvent>
 #include <QEvent>
+#include <QMainWindow>
 #include <QPoint>
 #include <QTabWidget>
 #include <QTimer>
@@ -13,7 +14,7 @@
 #include "session.h"
 #include "horizontaltabs.h"
 
-class Conlecterm : public QWidget {
+class Conlecterm : public QMainWindow {
 	Q_OBJECT
 
 public:
@@ -30,6 +31,13 @@ protected:
 	void closeEvent(QCloseEvent *event);
 	bool event(QEvent *event);
 
+	void keyPressEvent(QKeyEvent *event) {
+                (void)(event);
+        }
+	void keyReleaseEvent(QKeyEvent *event) {
+                (void)(event);
+        }
+
 	// make Tab a normal key
 	bool focusNextPrevChild(bool next) {
                 (void)(next);
@@ -37,6 +45,7 @@ protected:
         }
 
 private:
+	QWidget *cq;
 	HorizontalTabWidget *tabs;
 	Configuration *configuration;
 	Session *session;
