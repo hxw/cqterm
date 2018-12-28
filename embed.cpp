@@ -3,6 +3,7 @@
 #include <QKeyEvent>
 #include <QString>
 #include <QWindow>
+#include <unistd.h> // usleep()
 
 #include "embed.h"
 #include "xinterface.h"
@@ -20,10 +21,16 @@ Embed::~Embed() {
 
 
 void Embed::begin() {
-	childId = getChildIdFrom(winId());
+        for (auto i = 0 ; i < 100 ; ++i) {
+		childId = getChildIdFrom(winId());
+                if (childId > 0) {
+                        break;
+                }
+		usleep(1000);
+	}
 	if (wantResize && childId > 0) {
 		resizeChild(childId, width, height);
-                wantResize = false;
+		wantResize = false;
         }
 }
 

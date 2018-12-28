@@ -120,11 +120,12 @@ bool TerminalTab::start() {
 
 			proc->start();
 			proc->waitForStarted();
+			qDebug() << "begin";
 			w->begin();
 			run = true;
 
 			if (!sendLines.isEmpty()) {
-                                usleep(1000);
+				usleep(100000);
 				auto lines = sendLines.join("\r") + "\r";
 				w->sendKeys(lines);
 			}
