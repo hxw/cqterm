@@ -21,11 +21,13 @@ Conlecterm::Conlecterm(Configuration *conf, Session *sess, QWidget *parent) :
 
         this->cq=new QWidget();
 
-	setWindowTitle(tr("CQterm"));
-	//resize(1200, 800);
-	showMaximized();
 	QIcon ico(":/application.icon");
 	setWindowIcon(ico);
+
+        setWindowTitle(tr("CQterm"));
+	//resize(1200, 800);
+	showMaximized();
+
 	setFocusPolicy(Qt::NoFocus);
 	this->cq->setFocusPolicy(Qt::StrongFocus);
 
