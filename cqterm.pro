@@ -2,6 +2,7 @@
 
 QT += widgets
 
+QMAKE_CXXFLAGS += -std=c++2a
 QMAKE_CXXFLAGS += -fsanitize=address
 QMAKE_CXXFLAGS += -fno-omit-frame-pointer
 QMAKE_CXXFLAGS += -Wshadow-uncaptured-local
